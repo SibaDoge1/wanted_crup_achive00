@@ -19,10 +19,12 @@
 ### 디버그모드로 실행
 
 - nodemon을 사용합니다. 'npm run debug'를 입력하여 실행합니다.
+- 리눅스의 경우 'npm run linuxdebug'를 입력하여 실행합니다.
 
 ### 프로덕션 모드로 실행
 
 - pm2를 사용합니다. 'npm start'를 입력하여 실행, 'npm stop'을 입력하여 중지합니다.
+- 리눅스의 경우 'npm run linuxstart'를 입력하여 실행합니다.
 
 ### 유닛테스트
 

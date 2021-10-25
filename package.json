@@ -5,6 +5,8 @@
   "scripts": {
     "debug": "set DEBUG=*,-nodemon*,-express:* & set JWT_SECRET=mysecret & nodemon --inspect app.js",
     "start": "set JWT_SECRET=mysecret & pm2 start app.js",
+    "linuxdebug": "export DEBUG=*,-nodemon*,-express:* && export JWT_SECRET=mysecret && nodemon --inspect app.js",
+    "linuxstart": "export JWT_SECRET=mysecret && pm2 start app.js",
     "stop": "pm2 kill",
     "before": "npm i pm2 nodemon -g",
     "test": "set JWT_SECRET=mysecret & mocha"
