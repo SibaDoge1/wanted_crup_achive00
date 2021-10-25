@@ -10,11 +10,11 @@ const config = require(__dirname + '/../config/config.json');
 const db = {};
 const util = require('../util');
 
-let isLogging = process.env.DBLOGGING ? process.env.DBLOGGING : false;
+let isLogging = process.env.DBLOGGING ? Boolean(process.env.DBLOGGING) : false;
 
 let sequelize;
 if(isInMemory){
-  sequelize = new Sequelize('sqlite::memory:', {logging:isLogging});
+  sequelize = new Sequelize('sqlite::memory:', {'logging':isLogging});
 }
 else{
   sequelize = new Sequelize(config);

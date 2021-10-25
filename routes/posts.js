@@ -16,13 +16,28 @@ router.get('/', function(req, res, next){
         };
     }
 
-    models.post.findAndCountAll({
-        order : [['createdAt', 'DESC']],
-        distinct: true,
+    models.post.findAll({
+        order : [['postid', 'DESC']],
         ...pageOpt
     }).then(result => {
-        res.json(util.resJson(true, null,result));
+        res.json(util.resJson(true, null,
+          {
+          "count":result ? result.length : 0 ,
+          "posts":result
+          }
+        ));
     });
+});
+
+
+router.get('/:postid', async function(req, res, next){
+  let postid = parseInt(req.params.postid);
+  let post = await models.post.findByPk(postid);
+  if(post == undefined){
+    res.json(util.resJson(false, `postid [${postid}] not exists`));
+    return;
+  }
+  res.json(util.resJson(true, null, post))
 });
 
 
@@ -33,8 +48,8 @@ router.post('/', util.decodeToken, function(req, res, next){
         content: req.body.content
       })
       .then( result => {
-        util.log(`post ${result.postid} created!`);
-        res.json(util.resJson(true, `post [${result.postid}] created!`));
+        util.log(`post ${result.title} created!`);
+        res.json(util.resJson(true, `post [${result.title}] created!`, {"postid":result.postid}));
       })
       .catch( err => {
         util.log(err);
@@ -43,9 +58,14 @@ router.post('/', util.decodeToken, function(req, res, next){
 });
 
 
-router.put('/', util.decodeToken, async function(req, res, next){
-    let post = await models.post.findByPk(req.body.postid);
-    if(post.userid != req.decoded.userid){
+router.put('/:postid', util.decodeToken, async function(req, res, next){
+    let postid = parseInt(req.params.postid);
+    let post = await models.post.findByPk(postid);
+    if(post == undefined){
+      res.json(util.resJson(false, `postid [${postid}] not exists`));
+      return;
+    }
+    if(post.author != req.decoded.userid){
         res.json(util.resJson(false, "Author is not YOU!!!"));
         return;
     }
@@ -55,13 +75,13 @@ router.put('/', util.decodeToken, async function(req, res, next){
         content: req.body.content
       }, {
           where:{
-              postid:req.body.postid,
+              postid:postid,
               author:req.decoded.userid
           }
       })
       .then( result => {
-        util.log(`post ${result.postid} updated!`);
-        res.json(util.resJson(true, `post [${result.postid}] updated!`));
+        util.log(`post ${postid} updated!`);
+        res.json(util.resJson(true, `postid [${postid}] updated!`));
       })
       .catch( err => {
         util.log(err);
@@ -70,22 +90,27 @@ router.put('/', util.decodeToken, async function(req, res, next){
 });
 
 
-router.put('/', util.decodeToken, async function(req, res, next){
-    let post = await models.post.findByPk(req.body.postid);
-    if(post.userid != req.decoded.userid){
+router.delete('/:postid', util.decodeToken, async function(req, res, next){
+    let postid = parseInt(req.params.postid);
+    let post = await models.post.findByPk(postid);
+    if(post == undefined){
+      res.json(util.resJson(false, `postid [${postid}] not exists`));
+      return;
+    }
+    if(post.author != req.decoded.userid){
         res.json(util.resJson(false, "Author is not YOU!!!"));
         return;
     }
 
     models.post.destroy({
         where: {
-            postid:req.body.postid,
+            postid:postid,
             author:req.decoded.userid
         }
       })
       .then( result => {
-        util.log(`post ${result} deleted!`);
-        res.json(util.resJson(true, `post [${result.title}] deleted!`));
+        util.log(`postid ${postid} deleted!`);
+        res.json(util.resJson(true, `postid [${postid}] deleted!`));
       })
       .catch( err => {
         util.log(err);

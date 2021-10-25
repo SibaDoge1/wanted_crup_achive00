@@ -28,7 +28,7 @@ util.decodeToken = function(req,res,next){
   }
 };
 
-util.log = debug('mycode:log');
-util.error = debug('mycode:error');
+util.log = debug('mylog:log');
+util.error = debug('mylog:err');
 
 module.exports = util;

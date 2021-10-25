@@ -27,7 +27,7 @@ router.post("/", async function(req,res,next){
     salt: salt
   })
   .then( result => {
-    util.log(`user ${body.userid} created!`);
+    util.log(`user [${body.userid}] created!`);
     res.json(util.resJson(true, `user [${body.userid}] created!`));
   })
   .catch( err => {

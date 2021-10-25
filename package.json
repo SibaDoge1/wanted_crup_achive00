@@ -1,12 +1,13 @@
 {
-  "name": "harbor-server",
+  "name": "wanted_crup_achive00",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "debug": "set DBLOGGING=true & set DEBUG=mycode:* & set JWT_SECRET=mysecret & nodemon --inspect app.js",
+    "debug": "set DEBUG=*,-nodemon*,-express:* & set JWT_SECRET=mysecret & nodemon --inspect app.js",
     "start": "set JWT_SECRET=mysecret & pm2 start app.js",
+    "stop": "pm2 kill",
     "before": "npm i pm2 nodemon -g",
-    "test": "mocha"
+    "test": "set JWT_SECRET=mysecret & mocha"
   },
   "dependencies": {
     "debug": "~2.6.9",
@@ -14,11 +15,16 @@
     "express-generator": "^4.2.0",
     "http-errors": "^1.6.3",
     "jsonwebtoken": "^8.5.1",
-    "mocha": "^9.1.3",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.4",
+    "pm2": "^5.1.2",
     "sequelize": "^5.22.3",
     "sequelize-cli": "^5.0.0",
     "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "mocha": "^9.1.3",
+    "nodemon": "^2.0.14"
   }
 }

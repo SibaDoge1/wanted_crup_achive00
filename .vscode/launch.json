@@ -15,6 +15,12 @@
             "name": "라이브 서버 시작",
             "request": "launch",
             "type": "node-terminal"
+        },        
+        {
+            "command": "npm run stop",
+            "name": "라이브 서버 중단",
+            "request": "launch",
+            "type": "node-terminal"
         },
         {
             "type": "node",
