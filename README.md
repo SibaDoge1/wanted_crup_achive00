@@ -1,1 +1,1 @@
-wanted_crup_achive00
+원티드 백엔드 코스 지원 과제
