@@ -35,9 +35,9 @@
         },
         {
             "type": "node-terminal",
-            "command": "npm run before",
+            "command": "npm run installgloabal",
             "request": "launch",
-            "name": "사전 구성요소 설치",
+            "name": "서버관리모듈 글로벌 설치",
             "skipFiles": [
                 "<node_internals>/**"
             ]
