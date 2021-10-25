@@ -13,8 +13,9 @@
 
 ### 사전 작업
 
+- 터미널에 'npm install'을 입력하여 dependence들을 설치합니다.
 - 실행을 위해 nodemon 혹은 pm2가 필요합니다. 모듈에 포함되어 있으나, 전역 모듈을 원하는 경우 터미널에 'npm run before'을 입력하여 설치가능합니다.
-
+  
 ### 디버그모드로 실행
 
 - nodemon을 사용합니다. 'npm run debug'를 입력하여 실행합니다.
