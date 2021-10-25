@@ -32,6 +32,9 @@ router.get('/', async function (req, res, next) {
         res.json(util.resJson(true, `User [${userid}] token is generated!`,{"token":token}));
       });
     }
+    else{
+      res.json(util.resJson(false, `invalid password!`));
+    }
   }
 });
 
